@@ -1,0 +1,1 @@
+pyrcc5 .\QComboBox\QComboBox.qrc -o QComboBox_rc.py
