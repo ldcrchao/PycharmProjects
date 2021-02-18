@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QPushButton_Use</class>
+ <widget class="QWidget" name="QPushButton_Use">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>QPushButton_Use</string>
+  </property>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>30</y>
+     <width>431</width>
+     <height>321</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_4">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QSplitter" name="splitter">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QWidget" name="">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QPushButton" name="btn_left">
+                <property name="styleSheet">
+                 <string notr="true">font: 10pt &quot;楷体&quot;;
+color: rgb(255, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string>左对齐</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="QPushButton_use.qrc">
+                  <normaloff>:/images/images/508.bmp</normaloff>:/images/images/508.bmp</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_middle">
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(0, 170, 0);
+font: 10pt &quot;楷体&quot;;</string>
+                </property>
+                <property name="text">
+                 <string>居中对齐</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="QPushButton_use.qrc">
+                  <normaloff>:/images/images/510.bmp</normaloff>:/images/images/510.bmp</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_right">
+                <property name="styleSheet">
+                 <string notr="true">font: 10pt &quot;楷体&quot;;
+color: rgb(85, 170, 255);</string>
+                </property>
+                <property name="text">
+                 <string>右对齐</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="QPushButton_use.qrc">
+                  <normaloff>:/images/images/512.bmp</normaloff>:/images/images/512.bmp</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>true</bool>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QPushButton" name="btn_bold">
+                <property name="styleSheet">
+                 <string notr="true">font: 10pt &quot;楷体&quot;;
+color: rgb(255, 0, 0);
+</string>
+                </property>
+                <property name="text">
+                 <string>粗体</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="QPushButton_use.qrc">
+                  <normaloff>:/images/images/500.bmp</normaloff>:/images/images/500.bmp</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_italic">
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(0, 170, 0);
+font: 10pt &quot;楷体&quot;;</string>
+                </property>
+                <property name="text">
+                 <string>斜体</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="QPushButton_use.qrc">
+                  <normaloff>:/images/images/502.bmp</normaloff>:/images/images/502.bmp</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_underline">
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(85, 170, 255);
+font: 10pt &quot;楷体&quot;;</string>
+                </property>
+                <property name="text">
+                 <string>下划线</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="QPushButton_use.qrc">
+                  <normaloff>:/images/images/504.bmp</normaloff>:/images/images/504.bmp</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QCheckBox" name="checkBox">
+                <property name="text">
+                 <string>Readonly</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox_2">
+                <property name="text">
+                 <string>Enabled</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox_3">
+                <property name="text">
+                 <string>ClearEnabled</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="editInput">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Times New Roman</family>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Python is the best language!</string>
+        </property>
+        <property name="cursorPosition">
+         <number>28</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Btnclose">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>楷体</family>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>关闭</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="QPushButton_use.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>Btnclose</sender>
+   <signal>clicked()</signal>
+   <receiver>QPushButton_Use</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>274</x>
+     <y>330</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>268</x>
+     <y>385</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
