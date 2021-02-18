@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QMyMCCB</class>
+ <widget class="QMainWindow" name="QMyMCCB">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1620</width>
+    <height>950</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1620</width>
+    <height>950</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Times New Roman</family>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>QMyMCCB</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="LoadData">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>200</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>200</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>加载波形</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Exit">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>10</y>
+      <width>200</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>150</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>退出</string>
+    </property>
+   </widget>
+   <widget class="QChartView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>850</width>
+      <height>561</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>850</width>
+      <height>560</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QTreeWidget" name="treeWidget">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>510</y>
+      <width>700</width>
+      <height>380</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>700</width>
+      <height>380</height>
+     </size>
+    </property>
+    <column>
+     <property name="text">
+      <string>故障编码</string>
+     </property>
+    </column>
+    <item>
+     <property name="text">
+      <string>正常状态N</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>机械故障M</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>M1铁芯卡涩</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>M2铁芯行程不足</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>M3顶杆阻力异常</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>M4合闸不同期</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>M5绝缘拉杆松动</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>M6分闸弹簧卡涩</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>M7虚假合闸</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>M8分闸不彻底</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>M9传动齿轮卡涩</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>M10触头超行程</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>线圈故障C</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>C1线圈过压</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C2线圈欠压</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C3线圈卡涩</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C4线圈老化</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C5线圈匝间短路</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C6线圈断线</string>
+      </property>
+     </item>
+    </item>
+    <item>
+     <property name="text">
+      <string>电机故障H</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>H1储能弹簧卡涩</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H2摇动手柄故障</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H3储能弹簧脱落</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H4储能电源故障</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H5储能电机老化</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H6储能电机过载</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H7储能开关故障</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H8储能马达异常</string>
+      </property>
+     </item>
+    </item>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>630</y>
+      <width>850</width>
+      <height>260</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>850</width>
+      <height>260</height>
+     </size>
+    </property>
+    <property name="title">
+     <string>当前可能的故障编码及其概率</string>
+    </property>
+    <widget class="QLineEdit" name="code1">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>90</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>M1</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>40</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>可能故障编码1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>150</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>概率</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>150</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>概率</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="prob2">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>200</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>0.12</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>460</x>
+       <y>40</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>可能故障编码2</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="prob1">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>200</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>0.87</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="code2">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>90</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>C1</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>10</y>
+      <width>700</width>
+      <height>501</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>550</width>
+      <height>300</height>
+     </size>
+    </property>
+    <property name="title">
+     <string>波形属性检测</string>
+    </property>
+    <widget class="QPushButton" name="StartTest">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>330</y>
+       <width>200</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>开始检测</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="n_components">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>50</y>
+       <width>100</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>60</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>2</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="SVM">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>200</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>SVM</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>120</y>
+       <width>330</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>330</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>请选择1种算法检测</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_6">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>140</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="MLP">
+     <property name="geometry">
+      <rect>
+       <x>520</x>
+       <y>200</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>MLP</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="RMSlabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>130</y>
+       <width>80</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>方差</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="qiaodu">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>230</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="qiaodulabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>230</y>
+       <width>80</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>峭度</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="piandulabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>320</y>
+       <width>80</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>偏度</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="AVA">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>50</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="piandu">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>330</y>
+       <width>150</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="AVAlabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>80</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>均值</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="n_conponents_label">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>50</y>
+       <width>200</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>150</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>主成分个数</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="piandulabel_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>420</y>
+       <width>330</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>算法耗时/s</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="consumetime">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>420</y>
+       <width>200</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1620</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">QChartView.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>Exit</sender>
+   <signal>clicked()</signal>
+   <receiver>QMyMCCB</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>399</x>
+     <y>61</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>699</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
