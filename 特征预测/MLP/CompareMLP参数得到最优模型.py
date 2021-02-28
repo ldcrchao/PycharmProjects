@@ -2,7 +2,7 @@
 # -*- coding UTF-8 -*-
 '''
 @Project : python学习工程文件夹
-@File : CompareMLP.py
+@File : CompareMLP参数得到最优模型.py
 @Author : chenbei
 @Date : 2020/12/24 19:23
 '''
@@ -32,7 +32,7 @@ def MLP_NeuralNetwork(clf,X,y,trainsize=0.7) :
     for i in range(len(y_pred)) :
         if y_pred[i] == y_test[i] :
             sum = sum + 1
-    sum = sum /len(y_pred)
+    sum = sum / len(y_pred)
     return sum ,numX_train
 def get_ACU(clf,maxiter,X,y) :
     ACU = []
@@ -41,9 +41,10 @@ def get_ACU(clf,maxiter,X,y) :
         acu , num_x_train = MLP_NeuralNetwork(clf, X, y, trainsize=0.7) # 这是训练一次得到的准确率
         ACU.append(acu)
         num_X_train.append(num_x_train)
-    return ACU ,num_X_train
+    return ACU ,num_X_train # 返回样本数量和这maxter次的acu
 def get_ACU_TrainSize(clf,maxiter,trainsize,X,y) :
     '''
+    与get_ACU函数区别在于transize不是固定的0.7
     :param clf: 模型
     :param maxiter: 训练次数
     :param test_size: 固定的比例
@@ -55,7 +56,7 @@ def get_ACU_TrainSize(clf,maxiter,trainsize,X,y) :
         acu , num_x_train = MLP_NeuralNetwork(clf, X, y, trainsize=trainsize) # 这是训练一次得到的准确率
         ACU.append(acu)
         num_X_train.append(num_x_train)
-    return ACU ,num_X_train
+    return ACU ,num_X_train # 返回样本数量和这maxter次的acu
 def PlotACU(ACU,maxiter,title1,title2) :
     plt.plot(ACU, 'c-p', linewidth=1,markersize=2, label='准确率')
     plt.plot([1, maxiter], [min(ACU), min(ACU)], 'r-o',label='准确率最小值', linewidth=1)
@@ -74,7 +75,7 @@ def ChangeActivation(activation,X,y,title1,title2):
     ACU, _ = get_ACU(clf, maxiter, X=X, y=y)
     PlotACU(ACU,maxiter=maxiter,title1=title1,title2 =title2)
 def ChangeSovler(sovler,X,y,title1,title2) :
-    if sovler == 'sgd' :
+    if sovler == 'sgd' : # 做判断是因为只有sgd方法需要设定学习率和学习方法
         clf = MLPClassifier(activation='identity', solver=sovler, alpha=1e-1, hidden_layer_sizes=(5, 2), random_state=1,
                             learning_rate='constant',learning_rate_init=0.001) # 在这里不考虑不同学习率方法,只考虑不同权值优化方法
     else:
@@ -182,12 +183,13 @@ def PlotInvscalingPowert(MinACU,MeanACU,Power_t) :
     plt.ylim(0,max(max(MinACU),max(MeanACU)))
     plt.show()
 def PlotTrainingSampleRatio(ACU_X,ACU,time,maxiter) :
-    fig ,ax = plt.subplots()
+    fig ,ax = plt.subplots() # 传入的为训练集数量和对应的准确率
     ax.plot(ACU_X,ACU, 'g-v', linewidth=2,markersize=2, label='平均准确率')
     ax.plot([1, max(ACU_X)],[min(ACU), min(ACU)],'r-o', label='平均准确率最小值', linewidth=1)
     ax.plot([1, max(ACU_X)],[np.mean(ACU), np.mean(ACU)], 'b-o' ,label='平均准确率平均值', linewidth=1)
-    ax.fill_between(np.arange(1, max(ACU_X), 1), np.mean(ACU) + np.std(ACU), np.mean(ACU) - np.std(ACU), alpha=0.1,
-                     color='r')
+    ax.fill_between(np.arange(1, max(ACU_X), 1),
+                    np.mean(ACU) + np.std(ACU), np.mean(ACU) - np.std(ACU),
+                    alpha=0.1,color='r')
     ax.text((1 + max(ACU_X)) / 2, np.mean(ACU) + 0.005, "准确率平均值 : " + str(round(np.mean(ACU), 5)),
              horizontalalignment='center',color='b', fontsize=16)
     ax.text((1 + max(ACU_X)) / 2, min(ACU) + 0.005, "准确率最小值 : " + str(round(min(ACU), 5)), horizontalalignment='center',color='r', fontsize=16)
@@ -204,7 +206,7 @@ def PlotTrainingSampleRatio(ACU_X,ACU,time,maxiter) :
     plt.legend(loc='upper left')
     plt.show()
 def ChangeTrainingSampleRatio(X,y):
-    trainsizes = np.arange(0.1, 1.0, 0.1)
+    trainsizes = np.arange(0.1, 1.0, 0.1)# 最优参数下划分训练集比例
     clf1 = MLPClassifier(activation= 'identity',solver='lbfgs', alpha=0.1,hidden_layer_sizes=(5, 2), random_state=1)
     maxiter = 100
     ACUmean = []
@@ -212,10 +214,11 @@ def ChangeTrainingSampleRatio(X,y):
     Time = []
     for trainsize in trainsizes:  # 不同训练样本数
         starttime = time()
-        acu, acu_x = get_ACU_TrainSize(clf1, maxiter, trainsize, X=X, y=y)  # 某一个训练比例,迭代maxiter次 得到相应的acu
+        # 对于不同训练集比例的需要返回样本数,用于绘图
+        acu, acu_x = get_ACU_TrainSize(clf1, maxiter, trainsize, X=X, y=y)  # 某一个训练比例,迭代maxiter次 得到相应的所有acu
         acu_mean = np.mean(acu)  # 找到每个训练比例下迭代maiter次的准确率平均值
         ACUmean.append(acu_mean)
-        acu_x_mean = np.mean(acu_x)
+        acu_x_mean = np.mean(acu_x) # 100个 0.9比例 取平均或者取第1个都一样
         ACU_X.append(acu_x_mean)  # 每次训练的数量
         endtime = time()
         consumetime = endtime - starttime
@@ -306,6 +309,6 @@ for i in range(len(power_ts))  :
     MeanACU.append(meanACU)
 PlotInvscalingPowert(MinACU=MinACU,MeanACU=MeanACU,Power_t=power_ts)
 #%% 上述的学习率、学习方法、激活函数、权值优化方法、逆学习率指数 都是计算随着训练次数的变化而变化的准确率 (固定训练比例0.3)
-# 现在还需要考虑在上述试验得到的最优参数下，即activation= 'identity',solver='lbfgs', alpha=0.1 时的不同训练样本数(0.1,0.2,..,0.9) 下的准确率
+# 现在还需要考虑在上述试验得到的最优参数下，即activation= 'identity',solver='lbfgs', alpha=0.1 时的不同训练样本数比例(0.1,0.2,..,0.9) 下的准确率
 ChangeTrainingSampleRatio(X,y) # 可以同时观察训练时间和准确率
 #%%
