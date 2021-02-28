@@ -23,44 +23,51 @@ from sklearn import svm
 import pandas as pd
 import numpy as np
 from time import time
-def onetrain(clf,X,y,testsize):
+def one_training(clf,X,y,testsize):
+    # 一次训练得到的准确率 可以用来作为基础函数被反复调用
     X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=testsize)
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
-    numX_train = len(y_train)  # 返回训练样本数量
-    sum = 0
+    num_x_train = len(y_train)  # 返回训练样本数量
+    true_num = 0 # 预测正确的数量
     for i in range(len(y_pred)):
         if y_pred[i] == y_test[i]:
-            sum = sum + 1
-    sum = sum / len(y_pred) # 准确率
-    return sum ,numX_train
-def maxitertrain(clf,X,y,maxiter,testsize) :
+            true_num = true_num + 1
+    acu = true_num / len(y_pred) # 准确率
+    return acu ,num_x_train
+def maxiter_training(clf,X,y,maxiter,testsize) :
+    # 获得某个transize下的准确率ACU 反复调用基础函数
     ACU = []
     num_X_train = [] # 固定样本数时此参数忽略
     for i in range(maxiter):  # 训练代数改变 如100次训练的准确率 需要ACU存储
-        acu, num_x_train = onetrain(clf, X, y, testsize=testsize)  # 这是训练一次得到的准确率
+        acu, num_x_train = one_training(clf, X, y, testsize=testsize)  # 这是训练一次得到的准确率
         ACU.append(acu)
         num_X_train.append(num_x_train)
     return ACU, num_X_train
-def PlotACU(ACU,testsize,title,maxiter) :
+def plot_acu_fixed_testsize(ACU,testsize,title,maxiter) :
+    # 绘制固定测试集比例 不同训练次数时的准确率
     plt.plot(ACU, 'c-p', linewidth=1,markersize=2, label='准确率')
     plt.plot([1, maxiter], [min(ACU), min(ACU)], 'r-o',label='准确率最小值', linewidth=1, )
     plt.plot([1, maxiter], [np.mean(ACU), np.mean(ACU)],'b-o', label='准确率平均值', linewidth=1)
     plt.fill_between(np.arange(1, maxiter, 1), np.mean(ACU) + np.std(ACU), np.mean(ACU) - np.std(ACU), alpha=0.1,
                      color='r')
-    plt.text((1 + maxiter) / 2, np.mean(ACU) + 0.01, "Avarage ACU : " + str(round(np.mean(ACU), 5)),
-             horizontalalignment='center', family="Times New Roman", fontsize=16)
-    plt.text((1 + maxiter) / 2, min(ACU) + 0.01, "Min ACU : " + str(round(min(ACU), 5)), family="Times New Roman",
-             horizontalalignment='center',fontsize=16)
-    plt.text((1 + maxiter) / 2, (min(ACU) + max(ACU)) / 2 -0.04, "Std ACU : " + str(round(np.std(ACU), 5)),
-             horizontalalignment='center', family="Times New Roman", fontsize=16)
+    plt.text((1 + maxiter) / 2, np.mean(ACU) + 0.01,
+             "准确率平均值 : " + str(round(np.mean(ACU), 5)),
+             horizontalalignment='center', fontsize=16,color='r')
+    plt.text((1 + maxiter) / 2, min(ACU) + 0.01,
+             "准确率最小值 : " + str(round(min(ACU), 5)),
+             horizontalalignment='center',fontsize=16,color='b')
+    plt.text((1 + maxiter) / 2, (min(ACU) + max(ACU)) / 2 -0.04,
+             "准确率标准差 : : " + str(round(np.std(ACU), 5)),
+             horizontalalignment='center', fontsize=16)
     plt.title(title+f'准确率变化图(测试集比例:{testsize})')
     plt.ylabel('准确率')
     plt.xlabel('训练次数')
     plt.legend(loc='lower left')
     plt.show()
-def PlotACUMulTestSize(ACU_X,ACU,time,title,maxiter) :
+def plot_acu_fixed_training_num(ACU_X,ACU,time,title,maxiter) :
     '''
+     绘制固定训练次数时 不同测试集比例的准确率
     :param ACU_X: 样本数量 list
     :param ACU: 不同样本数量对应的maxiter次平均准确率
     :param time: 不同样本数量对应的maxiter次 时间
@@ -72,12 +79,15 @@ def PlotACUMulTestSize(ACU_X,ACU,time,title,maxiter) :
     ax.plot([1, max(ACU_X)],[np.mean(ACU), np.mean(ACU)], 'b-o' ,label='平均正确率平均值', linewidth=1)
     ax.fill_between(np.arange(1, max(ACU_X), 1), np.mean(ACU) + np.std(ACU), np.mean(ACU) - np.std(ACU), alpha=0.1,
                      color='r')
-    ax.text((1 + max(ACU_X)) / 2, np.mean(ACU) + 0.02, "Avarage ACU : " + str(round(np.mean(ACU), 5)),
+    ax.text((1 + max(ACU_X)) / 2, np.mean(ACU) + 0.02,
+            "准确率平均值 : " + str(round(np.mean(ACU), 5)),
              horizontalalignment='center',family="Times New Roman", fontsize=16)
-    ax.text((1 + max(ACU_X)) / 2, min(ACU) + 0.02, "Min ACU : " + str(round(min(ACU), 5)), family="Times New Roman",
+    ax.text((1 + max(ACU_X)) / 2, min(ACU) + 0.02,
+            "准确率最小值 : " + str(round(min(ACU), 5)),
             horizontalalignment='center', fontsize=16)
-    ax.text((1 + max(ACU_X)) / 2, (min(ACU) + max(ACU)) / 2, "Std ACU : " + str(round(np.std(ACU), 5)),
-             family="Times New Roman",horizontalalignment='center', fontsize=16)
+    ax.text((1 + max(ACU_X)) / 2, (min(ACU) + max(ACU)) / 2,
+            "准确率标准差 : " + str(round(np.std(ACU), 5)),
+           horizontalalignment='center', fontsize=16)
     ax.legend(loc='upper right')
     ax.set_ylabel('平均准确率')
     ax.set_xlabel('训练样本数量/个')
@@ -88,23 +98,23 @@ def PlotACUMulTestSize(ACU_X,ACU,time,title,maxiter) :
     plt.title(title+f'每{maxiter}次的平均准确率')
     plt.legend(loc='upper left')
     plt.show()
-def FixedSampleSize(kernel,title,X,y) :
-    maxiter = 240
+def fixed_testsize(kernel,title,X,y) :
+    maxiter = 100
     testsize = 0.3
     clf=svm.SVC(kernel=kernel,C=1,probability=True)
     #oneacu = onetrain(clf,X,y,testsize) # 训练一次的准确率是不够的
-    manyacus,_ = maxitertrain(clf,X=X,y=y,maxiter=maxiter,testsize=testsize) # 固定样本数时此参数忽略
-    PlotACU(manyacus,testsize,title,maxiter=maxiter)
-def FixedNumberOfTraining(kernel,title,X,y) :
-    clf1 = svm.SVC(kernel=kernel,C=1,probability=True)
+    ACU,_ = maxiter_training(clf,X=X,y=y,maxiter=maxiter,testsize=testsize) # 固定样本数时此参数忽略
+    plot_acu_fixed_testsize(ACU,testsize,title,maxiter=maxiter)
+def fixed_training_num(kernel,title,X,y) :
+    clf = svm.SVC(kernel=kernel,C=1,probability=True)
     testsizes = np.arange(0.1,1.0,0.1)
-    maxiter = 240
+    maxiter = 100
     ACUmean = []
     ACU_X = []
     Time = []
     for testsize in testsizes : # 不同训练样本数
         starttime = time()
-        acu , acu_x = maxitertrain(clf1,X,y,maxiter,testsize)  # 某一个训练比例,迭代maxiter次 得到相应的acu 和对应的样本数
+        acu , acu_x = maxiter_training(clf,X,y,maxiter,testsize)  # 某一个训练比例,迭代maxiter次 得到相应的acu 和对应的样本数
         acu_mean = np.mean(acu) # 找到每个训练比例下迭代maiter次的准确率平均值 这是因为固定训练次数的话需要1个比例训练多次所以要取平均
         ACUmean.append(acu_mean)
         acu_x_mean = np.mean(acu_x)
@@ -113,7 +123,7 @@ def FixedNumberOfTraining(kernel,title,X,y) :
         consumetime = endtime - starttime
         Time.append(consumetime)
     Time = np.array(Time) / maxiter # 归算到每一次花费的时间
-    PlotACUMulTestSize(ACU_X,ACUmean,Time,title,maxiter)
+    plot_acu_fixed_training_num(ACU_X,ACUmean,Time,title,maxiter)
 Data = pd.read_csv("C:/Users\chenbei\Desktop\陈北个人论文\图源数据及其文件/FirstLevelPCA.csv",encoding='gbk')
 X_dataframe = Data.iloc[:,0:-1] # 分出数据和标签 此时是DataFrame格式
 y_dataframe = Data.iloc[:,-1]
@@ -122,9 +132,9 @@ y_category = y_dataframe.values # ndarray格式
 Label = LabelEncoder() # 初始化1个独热编码类
 y = Label.fit_transform(y_category) # 自动生成标签
 #%% 固定样本数量 不同训练次数 0~100次
-FixedSampleSize(kernel='linear',title='SVM线性核函数',X=X,y=y)
-FixedSampleSize(kernel='rbf',title='SVM径向基核函数',X=X,y=y)
+fixed_testsize(kernel='linear',title='SVM线性核函数',X=X,y=y)
+fixed_testsize(kernel='rbf',title='SVM径向基核函数',X=X,y=y)
 #%%
 # 考虑不同训练样本数量的准确率,固定训练次数100次
-FixedNumberOfTraining(kernel='rbf',title='SVM线性核函数',X=X,y=y)
-FixedNumberOfTraining(kernel='rbf',title='SVM径向基核函数',X=X,y=y)
+fixed_training_num(kernel='linear',title='SVM线性核函数',X=X,y=y)
+fixed_training_num(kernel='rbf',title='SVM径向基核函数',X=X,y=y)
