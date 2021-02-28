@@ -793,7 +793,7 @@ plt.figure(figsize=(12, 8.4))
 accuracy = plt.subplot(211)  # 准确率
 timescale = plt.subplot(212)  # 耗时
 # 基于不同核函数的两种估计的时间和准确率
-accuracy.plot(sample_sizes, nystroem_scores_rbf, label="基于RBF核的奈斯特罗姆近似--准确率")
+accuracy.plot(sample_sizes, nystroem_scores_rbf, label="基于RBF核的奈斯特罗姆近似-准确率")
 timescale.plot(
     sample_sizes,
     nystroem_times_rbf,
