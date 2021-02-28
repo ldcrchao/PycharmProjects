@@ -25,33 +25,33 @@ from time import time
 from sklearn.model_selection import LeaveOneOut # 留1法, K折交叉验证中K=n(样本数)的情况
 from sklearn.model_selection import LeavePOut  # 留P法, K折交叉验证中K=n-p的情况,即剩下p个测试集
 def OnetrainLeaveOne(clf,X,y,loo,p):
-    K = 0
-    num = 0
-
-    sumacu = 0
+    # loo根据p的取值得到的划分方法
+    training_nums = 0 # 用来计算当前的训练次数，留1法最终240，留2法就需要计算C(n,2)
+    num = 0 # 计算留1法到当前训练次数预测正确的个数
+    sumacu = 0 # 留2法计算当前训练次数总的准确率
     ACU = []
     for train_index, test_index in loo.split(X):
         X_train, y_train = X[train_index], y[train_index]
         X_test, y_test = X[test_index], y[test_index]
         idx = loo.get_n_splits(X)  # n_splits = 241
-        pp = 0
-        if idx:
-            K = K + 1
+        pp = 0 # 用于留2法确定每次预测时2个有几个正确 取值只有0,0.5,1.0
+        if idx: # 每次划分都会返回一个bool值 为真则记录一次数据K 最终K=240 或者说训练集数-1
+            training_nums = training_nums + 1
         clf.fit(X_train, y_train)
         y_pred = clf.predict(X_test)
         if p == 1 :
            if y_pred == y_test: # 每次交叉验证只预测1个测试集,故直接进行比较即可
                num = num + 1
-           acu = num / K # 准确率 (判断当前240交叉验证次数下有多少个预测正确)
+           acu = num / training_nums # 准确率 (判断当前240交叉验证次数下有多少个预测正确)
         else: # 留2法时还需要计算每次2个中有几个正确,取值只有0,0.5,1.0
             for j in range(len(y_pred)):
                 if y_pred[j] == y_test[j]:
                     pp = pp + 1
             acu = pp / len(y_pred) # 0,0.5,1.0
-            sumacu = sumacu + acu # 到当前k次训练类似的准确个数
-            acu = sumacu / K  # 准确率
+            sumacu = sumacu + acu # 到当前k次训练时的准确率总和
+            acu = sumacu / training_nums  # 当前准确率总和/当前训练总次数 = 当前准确率 会随着训练次数持续变化
         ACU.append(acu)
-    return ACU , K #返回每次训练的当前准确率和最终训练次数
+    return ACU , training_nums #返回每次训练的当前准确率和最终训练次数
 def PlotACU(ACU,title,TrainingNums,Time) :
     plt.plot(ACU, 'c-p', linewidth=2, markersize=2,label='准确率')
     plt.plot([1, TrainingNums], [min(ACU), min(ACU)],'r-o', label='准确率最小值', linewidth=1)
@@ -72,6 +72,14 @@ def PlotACU(ACU,title,TrainingNums,Time) :
     plt.legend(loc='lower left')
     plt.show()
 def LeaveP_Method(kernel,title,X,y,p) :
+    '''
+    :param kernel: 核函数类型
+    :param title: 图标题
+    :param X: 数据集
+    :param y: 标签集
+    :param p: 留p法 p=1、2
+    :return:
+    '''
     if p == 1:
        loo = LeaveOneOut()
     else:
