@@ -24,34 +24,40 @@ from time import time
 from sklearn import svm
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
-def MLP_NeuralNetwork(clf,X,y,train_size=0.3) :
+def mlp_acu_onetraining(clf,X,y,train_size=0.3) :
+    # 一次训练得到的准确率 可以用来作为基础函数被反复调用
     X_train, X_test, y_train, y_test = train_test_split(X,y,train_size=train_size)
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
-    numX_train = len(y_train) # 返回训练样本数量
-    sum = 0
+    num_x_train = len(y_train) # 返回训练样本数量
+    true_num = 0
     for i in range(len(y_pred)) :
         if y_pred[i] == y_test[i] :
-            sum = sum + 1
-    sum = sum /len(y_pred)
-    return sum ,numX_train
-def get_MLPACU(clf,maxiter,train_size,X,y) :
+            true_num = true_num + 1
+    acu = true_num /len(y_pred)# 单次预测的准确率
+    return acu ,num_x_train
+def get_mlp_acu_trainsize(clf,maxiter,train_size,X,y) :
+    # 获得某个transize下的准确率ACU 反复调用基础函数
     ACU = []
     num_X_train = []
     for i in range(maxiter): # 训练代数改变
-        acu , num_x_train = MLP_NeuralNetwork(clf, X, y, train_size=train_size) # 这是训练一次得到的准确率
+        acu , num_x_train = mlp_acu_onetraining(clf, X, y, train_size=train_size) # 这是训练一次得到的准确率
         ACU.append(acu)
         num_X_train.append(num_x_train)
     return ACU ,num_X_train
-def PlotMLPACU(ACU,maxiter,trainsize) :
+def plot_mlp_acu(ACU,maxiter,trainsize) :
     plt.plot(ACU, 'c-p', linewidth=1,markersize=2, label='准确率')
     plt.plot([1, maxiter], [min(ACU), min(ACU)], 'r-o',label='准确率最小值', linewidth=1)
     plt.plot([1, maxiter], [np.mean(ACU), np.mean(ACU)], 'b-o',label='准确率平均值', linewidth=1 )
-    plt.fill_between(np.arange(1, maxiter, 1), np.mean(ACU) + np.std(ACU), np.mean(ACU) - np.std(ACU), alpha=0.1,
-                     color='r')
-    plt.text((1 + maxiter) / 2, np.mean(ACU) + 0.005, "准确率平均值 : " + str(round(np.mean(ACU), 5))
+    plt.fill_between(np.arange(1, maxiter, 1),
+                     np.mean(ACU) + np.std(ACU), np.mean(ACU) - np.std(ACU),
+                     alpha=0.1,color='r')
+    plt.text((1 + maxiter) / 2, np.mean(ACU) + 0.005,
+             "准确率平均值 : " + str(round(np.mean(ACU), 5))
              ,horizontalalignment='center',color='b', fontsize=16)
-    plt.text((1 + maxiter) / 2, min(ACU) + 0.005, "准确率最小值 : " + str(round(min(ACU), 5)), horizontalalignment='center',color='r', fontsize=16)
+    plt.text((1 + maxiter) / 2, min(ACU) + 0.005,
+             "准确率最小值 : " + str(round(min(ACU), 5)),
+             horizontalalignment='center',color='r', fontsize=16)
     plt.title(f'MLP神经网络准确率变化图(训练集比例:{trainsize})')
     plt.ylabel('准确率')
     plt.xlabel('训练次数')
@@ -71,7 +77,7 @@ def get_svm_acu(clf,X,y,maxiter,trainsize=0.7) :
         pp = pp / len(y_pre) # 某一次的预测准确率
         PP.append(pp) # 100次的所有预测准确率
     return PP ,maxiter ,trainsize
-def PlotSVMACU(ACU,maxiter,trainsize) :
+def plot_svm_acu(ACU,maxiter,trainsize) :
     plt.plot(ACU, 'c-p', linewidth=1,markersize=2, label='准确率')
     plt.plot([1, maxiter], [min(ACU), min(ACU)], 'r-o',label='准确率最小值', linewidth=1)
     plt.plot([1, maxiter], [np.mean(ACU), np.mean(ACU)], 'b-o',label='准确率平均值', linewidth=1 )
@@ -93,19 +99,16 @@ y_category = y_dataframe.values # ndarray格式
 Label = LabelEncoder() # 初始化1个独热编码类
 y = Label.fit_transform(y_category) # 自动生成标签
 #%%
-clf = MLPClassifier(activation= 'identity',solver='lbfgs', alpha=0.1,hidden_layer_sizes=(5, 2), random_state=1) #表示2层,第一层5个神经元 第二层2个
+# 随着训练次数的增加来比较2个最佳模型的准确率和花费时间
+clf_mlp = MLPClassifier(activation= 'identity',solver='lbfgs',
+                    alpha=0.1,hidden_layer_sizes=(5, 2), random_state=1) #表示2层,第一层5个神经元 第二层2个
 maxiter = 100
 trainsize = 0.7
-ACU,_ = get_MLPACU(clf,maxiter,trainsize,X=X,y=y)
-PlotMLPACU(ACU,maxiter =maxiter,trainsize=trainsize)
-clf1 = svm.SVC(kernel='linear', C=1, probability=True)
-acu , maxiter,trainsize = get_svm_acu(clf1,X,y,maxiter=100,trainsize=0.7)
-PlotSVMACU(acu,maxiter,trainsize)
+# 获得某个训练集比例的准确率
+ACU,_ = get_mlp_acu_trainsize(clf_mlp,maxiter,trainsize,X=X,y=y)
+plot_mlp_acu(ACU,maxiter =maxiter,trainsize=trainsize)
+
+clf_svm = svm.SVC(kernel='linear', C=1, probability=True)
+acu , maxiter,trainsize = get_svm_acu(clf_svm,X,y,maxiter=100,trainsize=0.7)
+plot_svm_acu(acu,maxiter,trainsize)
 #%%
-clf = svm.SVC(kernel='linear', C=1, probability=True)
-X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.9)
-clf.fit(X_train, y_train)
-HHH = X_test[2,:]
-HHH = HHH.reshape(1,2)
-#%%
-y_pred = clf.predict(HHH)
