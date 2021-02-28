@@ -2,7 +2,7 @@
 # -*- coding UTF-8 -*-
 '''
 @Project : python学习工程文件夹
-@File : MLP.py
+@File : MLP基础算法.py
 @Author : chenbei
 @Date : 2020/12/22 19:35
 '''
