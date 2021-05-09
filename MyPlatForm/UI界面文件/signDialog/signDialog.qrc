@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/click.ico</file>
+        <file>images/Login.png</file>
+    </qresource>
+</RCC>
